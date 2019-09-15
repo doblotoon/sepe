@@ -1,3 +1,205 @@
+<?php
+
+$json = file_get_contents('dados.json');
+$dados = json_decode($json, true);
+
+
+foreach ($dados as $key => $value) {// tem uma variável pra cada pergunta do json
+    foreach ($value as $key => $value) {
+        /*echo "<pre>";
+        print("{$key} => {$value}");
+        echo "<pre>";*/
+
+        switch ($key) {
+            case 'curso':
+                $curso[] = $value;
+                break;
+            
+            case 'ano':
+                $ano[] = $value;
+                break;
+            
+            case 'cor':
+                $cor[] = $value;
+                break;
+            
+            case 'idade':
+                $idade[] = $value;
+                break;
+            
+            case 'sexo':
+                $sexo[] = $value;
+                break;
+            
+            case 'orientacao':
+                $orientacao[] = $value;
+                break;
+            
+            case 'religiao':
+                $religiao[] = $value;
+                break;
+
+            case 'moradia':
+                $moradia[] = $value;
+                break;
+
+            case 'trabalho':
+                $trabalho[] = $value;
+                break;
+            
+            case 'fundamental':
+                $fundamental[] = $value;
+                break;
+
+            case 'escolhaIF':
+                $escolhaIF[] = $value;
+                break;
+
+            case 'ensinoSuperior':
+                $ensinoSuperior[] = $value;
+                break;
+
+            case 'streaming':
+                $streaming[] = $value;
+                break;
+
+            case 'politica':
+                $politica[] = $value;
+                break;
+
+            case 'alimentacao':
+                $alimentacao[] = $value;
+                break;
+
+            case 'atividadeFisica':
+                $atividadeFisica[] = $value;
+                break;
+
+            case 'drogas':
+                $drogas[] = $value;
+                break;
+
+            case 'renda':
+                $renda[] = $value;
+                break;
+
+            case 'divorcio':
+                $divorcio[] = $value;
+                break;
+
+            case 'irmao':
+                $irmao[] = $value;
+                break;
+
+            case 'cansacoAula':
+                $cansacoAula[] = $value;
+                break;
+
+            case 'pressao':
+                $pressao[] = $value;
+                break;
+
+            case 'tempoEstudo':
+                $tempoEstudo[] = $value;
+                break;
+
+            case 'relacionamentosIF':
+                $relacionamentosIF[] = $value;
+                break;
+
+            case 'estadoEspirito':
+                $estadoEspirito[] = $value;
+                break;
+
+            case 'tmepoParticular':
+                $tmepoParticular[] = $value;
+                break;
+
+            case 'prodCultural':
+                $prodCultural[] = $value;
+                break;
+
+            case 'suicidio':
+                $suicidio[] = $value;
+                break;
+            default:
+                //algo deu muito errado;
+                break;
+        }
+        //$curso[$key] .=$value ;
+    }
+}
+function getJSON($arquivo){
+    $json = file_get_contents("{$arquivo}");
+    $dados = json_decode($json, true);
+    return $dados;
+}
+
+function variavel($dados, $chaveJson){// n tá funfando
+    foreach ($dados as $key => $value) {
+        foreach ($value as $chave => $valor) {
+            if ($chaveJson == $chave) {
+                $dados[] = $valor;
+            }
+        }
+    }
+    return $dados;
+}
+
+
+/**
+ * Retorna o valor que mais aparece no array (moda estatistica)
+ * @param array $a Array de valores
+ * @param int $quantidade Quantidade de vezes que a moda foi observada
+ * @return array Valores mais observados no array
+ */
+function moda(array $a, &$quantidade = 0) { 
+//funcao que dá a moda definitiva
+    $moda = array();
+    if (empty($a)) {
+        return $moda;
+    }
+
+    // Calcular quantidade de ocorrencias de cada valor
+    $ocorrencias = array();
+    foreach ($a as $valor) {
+        $valor_str = var_export($valor, true);
+        if (!isset($ocorrencias[$valor_str])) {
+            $ocorrencias[$valor_str] = array(
+                'valor' => $valor,
+                'ocorrencias' => 0
+            );
+        }
+        $ocorrencias[$valor_str]['ocorrencias'] += 1;
+    }
+
+    // Determinar maior ocorrencia
+    $quantidade = null;
+    foreach ($ocorrencias as $item) {
+        if ($quantidade === null || $item['ocorrencias'] >= $quantidade) {
+            $quantidade = $item['ocorrencias'];
+        }
+    }
+
+    // Obter valores com a maior ocorrencia
+    foreach ($ocorrencias as $item) {
+        if ($item['ocorrencias'] == $quantidade) {
+            $moda[] = $item['valor'];
+        }
+    }
+    return $moda;
+}
+function calcModa($pergunta){
+// funcao que dá os dados da moda
+    $moda = array_count_values($pergunta);
+    return $moda;
+}
+
+print_r(calcModa($ano));
+print_r(array_count_values($curso)); //moda
+
+
+?>
 <html>
   <head>
     <!--Load the AJAX API-->
