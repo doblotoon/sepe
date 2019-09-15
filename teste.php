@@ -111,8 +111,8 @@ foreach ($dados as $key => $value) {// tem uma variável pra cada pergunta do js
                 $estadoEspirito[] = $value;
                 break;
 
-            case 'tmepoParticular':
-                $tmepoParticular[] = $value;
+            case 'tempoParticular':
+                $tempoParticular[] = $value;
                 break;
 
             case 'prodCultural':
@@ -222,8 +222,8 @@ $a = porcentagem(calcModa($curso));
         var data = google.visualization.arrayToDataTable([
 
             <?php
-                echo "['religiao', 'porcentagem'],";
-                $a = calcModa($religiao);
+                echo "['pergunta', 'porcentagem'],";
+                $a = calcModa($politica);
                 foreach ($a as $key => $value) {
                     echo "['{$key}', {$value}],";
                 }
@@ -239,10 +239,10 @@ $a = porcentagem(calcModa($curso));
         ]);
 
         var options = {
-          title: 'religião',
+          title: 'posicionamento político (1 - esquerda | 2 - centro | 3 - direita)',
           pieHole: 0.6,
-          height: 1500,
-          width: 1500
+          height: 600,
+          width: 900
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
