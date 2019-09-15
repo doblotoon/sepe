@@ -203,7 +203,7 @@ function porcentagem($moda){
     return $dados;
 //pega a moda de cada resposta e já calcula as suas porcentagens
 }
-print_r(porcentagem(calcModa($religiao)));
+//print_r(porcentagem(calcModa($religiao)));
 /*
 $a = porcentagem(calcModa($curso)); 
                 foreach ($a as $key => $value) {
@@ -211,66 +211,54 @@ $a = porcentagem(calcModa($curso));
                 }*/
 //print_r(calcModa($ano));
 //print_r(array_count_values($curso)); //moda
-
-
 ?>
 <html>
   <head>
-    <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-
-      // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
-
-      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
-
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
       function drawChart() {
-
-        // Create the data table.
         var data = google.visualization.arrayToDataTable([
-        [<?php
-            $a = porcentagem(calcModa($curso)); 
-                foreach ($a as $key => $value) {
-                    print("{$key}, ");
-                }?>
-                , { role: 'annotation' } ],
-        ['2010', <?php
-            $a = porcentagem(calcModa($curso)); 
-                foreach ($a as $key => $value) {
-                    print("{$value}% ");
-                }?> '']
-      ]);
 
-       var options_fullStacked = {
-          isStacked: 'percent',
-          height: 300,
-          legend: {position: 'top', maxLines: 3},
-          hAxis: {
-            minValue: 0,
-          }
+            <?php
+                echo "['religiao', 'porcentagem'],";
+                $a = calcModa($religiao);
+                foreach ($a as $key => $value) {
+                    echo "['{$key}', {$value}],";
+                }
+            ?>
+
+
+          /*['Task', 'Hours per Day'],
+          ['Work',     11],
+          ['Eat',      2],
+          ['Commute',  2],
+          ['Watch TV', 2],
+          ['Sleep',    7]*/
+        ]);
+
+        var options = {
+          title: 'religião',
+          pieHole: 0.6,
+          height: 1500,
+          width: 1500
         };
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-        chart.draw(data, options_fullStacked);
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
-        google.visualization.events.addListener(chart, 'ready', function () {
+         google.visualization.events.addListener(chart, 'ready', function () {
         chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
         console.log(chart_div.innerHTML);
       });
 
-      chart.draw(data, options_fullStacked);
+        chart.draw(data, options);
+
+
       }
     </script>
   </head>
-
   <body>
-    <!--Div that will hold the pie chart-->
-    <div id="chart_div"></div>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
   </body>
 </html>
