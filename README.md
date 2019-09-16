@@ -1,0 +1,1 @@
+link para o documento com todos os gráficos juntos https://docs.google.com/document/d/1biGTa23OyL9iMLIUHDWYi6ZvaieYtKL1pNJPq3mQQZo/edit?usp=sharing
